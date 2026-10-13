@@ -1,0 +1,16 @@
+Agent card for the Orders agent (Details > A2A protocol > Set up)
+
+Description:
+Takes custom cake and catering orders for Blue Penguin Bakery, and answers questions about existing orders.
+
+Skill name:
+Place orders
+
+Tags:
+orders, cakes, catering
+
+Skill description:
+Places custom cake and catering orders, and checks the status of an order.
+
+Example prompts:
+I'd like a chocolate cake for 8 people on Saturday. Is my order BP-1045 confirmed?

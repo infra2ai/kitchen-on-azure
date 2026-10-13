@@ -1,0 +1,9 @@
+{
+  "bindings": [
+    { "authLevel": "anonymous", "type": "httpTrigger", "direction": "in", "name": "req", "methods": ["post"] },
+    { "type": "http", "direction": "out", "name": "res" },
+    { "type": "table", "direction": "in", "name": "orders", "tableName": "orders", "partitionKey": "orders", "take": 1000, "connection": "AzureWebJobsStorage" },
+    { "type": "table", "direction": "out", "name": "newOrder", "tableName": "orders", "connection": "AzureWebJobsStorage" },
+    { "type": "serviceBus", "direction": "out", "name": "kitchenTask", "queueName": "kitchen-tasks", "connection": "ServiceBusConnection" }
+  ]
+}

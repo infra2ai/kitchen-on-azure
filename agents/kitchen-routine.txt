@@ -1,0 +1,18 @@
+Routine for the Kitchen agent (its Playground > "Create routine for this agent")
+
+Name:
+daily-stock-check
+
+Agent:
+kitchen
+
+Prompt:
+Check today's kitchen tasks and stock levels. Notify the supplier for any ingredient below its reorder level.
+
+Trigger:
+Recurring schedule, daily, at 9:00 AM (the Foundry portal's own default -- a
+reasonable time for a bakery kitchen to check in).
+
+To see it run without waiting for the schedule, open the routine and click
+"Test run". Its run history shows every dispatch (manual and scheduled), with
+how long it took and whether it completed.

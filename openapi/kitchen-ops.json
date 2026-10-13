@@ -1,0 +1,56 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "Blue Penguin Kitchen",
+    "version": "1.0"
+  },
+  "servers": [
+    {
+      "url": "https://<your-function-app-default-domain>/api"
+    }
+  ],
+  "paths": {
+    "/GetKitchenTasks": {
+      "get": {
+        "operationId": "getKitchenTasks",
+        "description": "Lists confirmed orders the kitchen still needs to prepare, from today onward.",
+        "responses": {
+          "200": { "description": "Today's date and the list of tasks" }
+        }
+      }
+    },
+    "/GetStock": {
+      "get": {
+        "operationId": "getStock",
+        "description": "Lists every ingredient the kitchen tracks, with its quantity, unit and reorder level.",
+        "responses": {
+          "200": { "description": "The current stock" }
+        }
+      }
+    },
+    "/NotifySupplier": {
+      "post": {
+        "operationId": "notifySupplier",
+        "description": "Asks the supplier to deliver more of an ingredient. Use it only for an ingredient that getStock shows below its reorder level.",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": ["ingredient", "quantity"],
+                "properties": {
+                  "ingredient": { "type": "string", "description": "The ingredient name, exactly as given by getStock" },
+                  "quantity": { "type": "number", "description": "How much to ask the supplier for" }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": { "description": "The notification that was recorded" }
+        }
+      }
+    }
+  }
+}

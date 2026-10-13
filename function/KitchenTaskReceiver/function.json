@@ -1,0 +1,6 @@
+{
+  "bindings": [
+    { "type": "serviceBusTrigger", "direction": "in", "name": "message", "queueName": "kitchen-tasks", "connection": "ServiceBusConnection", "dataType": "string" },
+    { "type": "table", "direction": "in", "name": "stockIn", "tableName": "stock", "partitionKey": "stock", "take": 100, "connection": "AzureWebJobsStorage" }
+  ]
+}

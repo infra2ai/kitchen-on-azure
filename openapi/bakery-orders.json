@@ -1,0 +1,79 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "Blue Penguin Orders",
+    "version": "2.0"
+  },
+  "servers": [
+    {
+      "url": "https://<your-function-app-default-domain>/api"
+    }
+  ],
+  "paths": {
+    "/PickupDates": {
+      "get": {
+        "operationId": "getPickupDates",
+        "description": "List today's date and the next dates on which a custom cake or a catering order can be picked up. Call it before placing an order, to turn a day like Saturday into a date.",
+        "parameters": [
+          {
+            "name": "orderType",
+            "in": "query",
+            "required": true,
+            "description": "cake or catering",
+            "schema": { "type": "string", "enum": ["cake", "catering"] }
+          }
+        ],
+        "responses": {
+          "200": { "description": "Today's date and the available pickup dates, each with its weekday" }
+        }
+      }
+    },
+    "/PlaceOrder": {
+      "post": {
+        "operationId": "placeOrder",
+        "description": "Place a custom cake or catering order. Returns the order number and its status: Confirmed, or Waiting for staff approval for big orders.",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": ["customerName", "orderType", "item", "people", "pickupDate"],
+                "properties": {
+                  "customerName": { "type": "string", "description": "The customer's name" },
+                  "orderType": { "type": "string", "enum": ["cake", "catering"] },
+                  "item": { "type": "string", "description": "What to make, for example: chocolate cake with Happy birthday Mia, or lunch platter" },
+                  "people": { "type": "integer", "description": "How many people it is for" },
+                  "pickupDate": { "type": "string", "description": "A date from getPickupDates, as YYYY-MM-DD" },
+                  "notes": { "type": "string", "description": "Anything else the bakery should know" }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": { "description": "The order number and its status" },
+          "400": { "description": "The order breaks a rule; the error says which" }
+        }
+      }
+    },
+    "/OrderStatus": {
+      "get": {
+        "operationId": "getOrderStatus",
+        "description": "Get the status of a Blue Penguin Bakery order.",
+        "parameters": [
+          {
+            "name": "orderId",
+            "in": "query",
+            "required": true,
+            "description": "The order number, for example BP-1045",
+            "schema": { "type": "string" }
+          }
+        ],
+        "responses": {
+          "200": { "description": "The order, or found: false if there is no such order" }
+        }
+      }
+    }
+  }
+}
